@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Member Cards</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="/src/html.js"></script>
+
+  </head>
+  <body>
+    <div class="container">
+      <h1>Member Cards</h1>
+      <div id="cards-container"></div>
+    </div>
+    <script>
+      fetch('/members')
+        .then(response => response.json())
+        .then(members => {
+          const cardsContainer = document.getElementById('cards-container');
+          members.forEach(member => {
+            const card = `
+              <div class="card">
+                <div class="card-header">
+                  <h2>${member.name}</h2>
+                  <p>${member.title}</p>
+                </div>
+                <div class="card-body">
+                  <img src="${member.imageUrl}" alt="${member.name}">
+                  <p>${member.bio}</p>
+                </div>
+              </div>
+            `;
+            cardsContainer.insertAdjacentHTML('beforeend', card);
+          });
+        })
+        .catch(error => console.error(error));
+    </script>
+  </body>
+</html>
