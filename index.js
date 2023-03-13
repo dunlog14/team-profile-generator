@@ -141,9 +141,41 @@ function generateTeam() {
     console.log("Team profile page generated successfully!");
   });
 }
-
 function generateHTML(team) {
-  // TODO: generate HTML code for team profile page
+  let html = "<!DOCTYPE html>\n";
+  html += "<html>\n";
+  html += "<head>\n";
+  html += "<meta charset='UTF-8'>\n";
+  html += "<meta name='viewport' content='width=device-width, initial-scale=1.0'>\n";
+  html += "<meta http-equiv='X-UA-Compatible' content='ie=edge'>\n";
+  html += "<title>Team Profile Page</title>\n";
+  html += "</head>\n";
+  html += "<body>\n";
+  html += "<h1>Team Profile Page</h1>\n";
+
+  // Iterate through each team member and generate a card for them
+  for (let i = 0; i < team.length; i++) {
+    html += "<div>\n";
+    html += "<h2>" + team[i].getName() + "</h2>\n";
+    html += "<h3>" + team[i].getRole() + "</h3>\n";
+    html += "<p>Employee ID: " + team[i].getId() + "</p>\n";
+    html += "<p>Email: <a href='mailto:" + team[i].getEmail() + "'>" + team[i].getEmail() + "</a></p>\n";
+
+    // Add specific details for each team member type
+    if (team[i] instanceof Manager) {
+      html += "<p>Office Number: " + team[i].getOfficeNumber() + "</p>\n";
+    } else if (team[i] instanceof Engineer) {
+      html += "<p>Github: <a href='https://github.com/" + team[i].getGithub() + "'>" + team[i].getGithub() + "</a></p>\n";
+    } else if (team[i] instanceof Intern) {
+      html += "<p>School: " + team[i].getSchool() + "</p>\n";
+    }
+
+    html += "</div>\n";
+  }
+
+  html += "</body>\n";
+  html += "</html>";
+  return html;
 }
 
 promptManager();
